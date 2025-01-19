@@ -1,4 +1,6 @@
+import prisma from "../configs/database.js";
 export const getData = () => {
+    const admins = prisma.admin.findmany();
     const data = {
         message : 'Hello Noeyy!',
         status:{
