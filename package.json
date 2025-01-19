@@ -2,11 +2,11 @@
   "name": "package",
   "version": "1.0.0",
   "description": "learn api w bung fajri",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "author": "v",
   "license": "ISC",
