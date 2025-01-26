@@ -9,7 +9,7 @@ export const registerHandler = async (data) => {
         }
     })
 
-    if (admin) throw new error400('Email already exist');
+    if (admin) throw error400('Email already exist');
 
     const hashedPassword = await hash(data.password, 10);
 
