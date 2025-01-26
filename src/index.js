@@ -5,6 +5,8 @@ import { errorHandler, resoureNotFound } from './middlewares/errorHandler.js';
 
 const app = express();
 
+app.use(express.json());
+
 app.use(router);
 app.use(authRouter);
 

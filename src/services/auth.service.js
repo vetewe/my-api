@@ -13,7 +13,7 @@ export const registerHandler = async (data) => {
 
     const hashedPassword = await hash(data.password, 10);
 
-    return await prisma.admin.creat({
+    return await prisma.admin.create({
         data: {
             name: data.name,
             email: data.email,
