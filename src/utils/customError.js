@@ -3,3 +3,9 @@ export const error400 = (message) => {
     error.statusCode = 400;
     return error
 }
+
+export const error401 = (message) => {
+    const error = new Error (message);
+    error.statusCode = 401;
+    return error
+}
