@@ -1,6 +1,6 @@
-import prisma from "../configs/database.js";
-import { error400 } from "../utils/customError.js";
-import { hash, compare } from "bcrypt";
+import prisma from '../configs/database.js';
+import { error400 } from '../utils/customError.js';
+import { hash, compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export const registerHandler = async (data) => {
@@ -10,7 +10,7 @@ export const registerHandler = async (data) => {
         }
     })
 
-    if (admin) throw error400('Email already exist');
+    if (admin) throw error400('Email already exists');
 
     const hashedPassword = await hash(data.password, 10);
 
@@ -28,14 +28,14 @@ export const loginHandler = async (data) => {
         where: {
             email: data.email
         }
-    })
+    });
 
     if (!admin) throw error400('Invalid email');
 
     const isPasswordMatch = await compare(data.password, admin.password);
-
-    if (!isPasswordMatch) throw error400('Invalid password');
-
+    
+    if(!isPasswordMatch) throw error400('Invalid password');
+    
     const dataAdmin = {
         id: admin.id,
         email: admin.email
@@ -43,8 +43,8 @@ export const loginHandler = async (data) => {
 
     const optionJwt = {
         expiresIn: '1h',
-    }
-    
+    };
+
     const token = jwt.sign(dataAdmin, process.env.SECRET_KEY, optionJwt);
 
     const dataToken = {

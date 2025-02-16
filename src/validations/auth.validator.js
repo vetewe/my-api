@@ -1,4 +1,4 @@
-import Joi from "joi"
+import Joi from "joi";
 
 export const registerValidator = Joi.object({
     name: Joi.string().required().messages({
@@ -18,7 +18,7 @@ export const registerValidator = Joi.object({
     confirmPassword: Joi.string().valid(Joi.ref('password')).required().messages({
         'string.empty': 'Confirm password is required',
         'any.required': 'Confirm password is required',
-        'any.only': 'Passwords do not match'
+        'any.only': 'Passwords do not match',
     })
 });
 
@@ -32,5 +32,5 @@ export const loginValidator = Joi.object({
         'string.min': 'Password must be at least 6 characters',
         'string.empty': 'Password is required',
         'any.required': 'Password is required'
-    })
+    }),
 });

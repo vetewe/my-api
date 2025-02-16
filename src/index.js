@@ -8,6 +8,7 @@ import { errorHandler, resourceNotFound } from './middlewares/errorHandler.js';
 const app = express();
 
 app.use(express.json());
+app.use('/public', express.static('public'));
 
 app.use(router);
 app.use(authRouter);

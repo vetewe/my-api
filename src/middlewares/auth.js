@@ -1,12 +1,12 @@
-import { error401 } from "../utils/customError.js";
+import { error401 } from '../utils/customError.js';
 import jwt from 'jsonwebtoken';
 
-export const auth = async (req, res,next) => {
+export const auth = async (req, res, next) => {
     try {
-        const{ authorization} = req.headers;
+        const { authorization } = req.headers;
 
-        if(!authorization) throw error401('Please authenticate');
-        
+        if (!authorization) throw error401('Please authenticate.');
+
         const token = authorization.split(' ')[1];
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
@@ -14,9 +14,9 @@ export const auth = async (req, res,next) => {
             id: decoded.id,
             email: decoded.email
         }
-        
+
         next();
     } catch (error) {
-        next(error);
+        next(error401('Token invalid, please login.'));
     }
 }

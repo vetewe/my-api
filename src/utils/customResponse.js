@@ -12,4 +12,4 @@ export const res201 = (res, message, data = null) => {
         message,
         data
     });
-}
+};

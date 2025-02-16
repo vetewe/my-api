@@ -1,7 +1,7 @@
-import { res200, res201 } from "../utils/customResponse.js";
-import { loginValidator, registerValidator } from "../validations/auth.validator.js";
-import { error400 } from "../utils/customError.js";
-import { registerHandler, loginHandler } from "../services/auth.service.js";
+import { res200, res201 } from '../utils/customResponse.js';
+import { loginValidator, registerValidator } from '../validations/auth.validator.js';
+import { error400 } from '../utils/customError.js';
+import { registerHandler, loginHandler } from '../services/auth.service.js';
 
 export const register = async (req, res, next) => {
     try {
@@ -12,7 +12,7 @@ export const register = async (req, res, next) => {
         
         await registerHandler(value)
 
-        res201(res, 'User Registered successfully');
+        res201(res, 'User registered successfully');
     } catch (error) {
         next(error);
     }
@@ -27,7 +27,7 @@ export const login = async (req, res, next) => {
 
         const data = await loginHandler(value);
 
-        res200(res, 'User logged successfully', data);
+        res200(res, 'User logged in successfully', data);
     } catch (error) {
         next(error);
     }

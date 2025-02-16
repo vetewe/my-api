@@ -1,14 +1,15 @@
 import prisma from "../configs/database.js";
 import { error404 } from "../utils/customError.js";
 
-export const store = async (data) => {
+export const store = async (data, filename) => {
+    const urlImage = process.env.BASE_URL + "/public/images/" + filename;
     return await prisma.book.create({
         data: {
             title: data.title,
             author: data.author,
             publisher: data.publisher,
             year: data.year,
-            image: data.image,
+            image: urlImage,
             quantity: data.quantity
         },
     });
@@ -19,6 +20,9 @@ export const getAllData = async (query) => {
     const limit = query.limit || 10;
 
     const books = await prisma.book.findMany({
+        where: {
+            deletedAt: null
+        },
         skip: (page - 1) * limit,
         take: limit,
     });
@@ -43,27 +47,23 @@ export const getAllData = async (query) => {
 };
 
 export const getOneData = async (id) => {
-    return await prisma.book.findUnique({
+    const book = await prisma.book.findUnique({
         where: {
-            id
+            id,
+            deletedAt: null
         }
     });
+
+    if(!book) throw error404("book not found");
+
+    return book;
 };
 
 export const updateData = async (id, data) => {
-    const book = await prisma.book.findUnique({
-        where: {
-            id
-        }
-    });
-
-    if(!book) {
-        throw error404("book not found");
-    }
-
     return await prisma.book.update({
         where: {
-            id
+            id,
+            deletedAt: null
         },
         data: {
             title: data.title,
@@ -74,5 +74,22 @@ export const updateData = async (id, data) => {
             quantity: data.quantity
         }
     });
+
+};
+
+export const destroyData = async (id) => {
+    const deleteBook = await prisma.book.update({
+        where: {
+            id,
+            deletedAt: null
+        },
+        data: {
+            deletedAt: new Date()
+        }
+    });
+
+    return {
+        book: deleteBook.title
+    }
 
 };
