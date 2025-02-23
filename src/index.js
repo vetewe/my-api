@@ -3,6 +3,7 @@ import router from './routes/index.route.js';
 import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 import bookRouter from './routes/book.route.js';
+import lendingRouter from './routes/lending.route.js';
 import { errorHandler, resourceNotFound } from './middlewares/errorHandler.js';
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(router);
 app.use(authRouter);
 app.use(userRouter);
 app.use(bookRouter);
+app.use(lendingRouter);
 
 app.use(resourceNotFound);
 app.use(errorHandler);
